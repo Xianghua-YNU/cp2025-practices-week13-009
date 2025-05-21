@@ -20,9 +20,9 @@ def load_sunspot_data(url):
         tuple: (years, sunspots) 年份和太阳黑子数
     """
     # TODO: 使用np.loadtxt读取数据，只保留第2(年份)和3(太阳黑子数)列
-    data = np.loadtxt(url)
-    years = data[:, 1]  # 第二列是年份
-    sunspots = data[:, 3]  # 第四列是太阳黑子数
+    data = np.loadtxt(url, usecols=(0, 1, 3))  # 只读取第0(年份)、1(月份)、3(太阳黑子数)列
+    years = data[:, 0] + (data[:, 1] - 1)/12.0  # 将年份转换为小数形式
+    sunspots = data[:, 2]  # 第3列是太阳黑子数
     return years, sunspots
 
 def plot_sunspot_data(years, sunspots):
@@ -93,6 +93,11 @@ def find_main_period(frequencies, power):
         float: 主周期（月）
     """
     # TODO: 实现主周期检测
+    # 忽略高频噪声（前几个点）
+    mask = (frequencies > 0) & (frequencies < 0.1)
+    power = power[mask]
+    frequencies = frequencies[mask]
+    
     # 找到功率谱中的最大峰值
     max_power_index = np.argmax(power)
     main_frequency = frequencies[max_power_index]
