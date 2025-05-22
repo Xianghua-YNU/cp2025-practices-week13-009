@@ -60,7 +60,15 @@ def plot_data(data, title="Dow Jones Industrial Average"):
     # [STUDENT_CODE_HERE]
     # 提示: 使用plt.plot绘制数据，添加适当的标签和标题
     
-    raise NotImplementedError("请在 {} 中实现此函数。".format(__file__))
+    plt.figure(figsize=(12, 6))
+    plt.plot(data, color='navy', linewidth=1, label='原始数据')
+    plt.title(title, fontsize=14)
+    plt.xlabel("时间 (交易日)", fontsize=12)
+    plt.ylabel("指数值", fontsize=12)
+    plt.grid(True, linestyle='--', alpha=0.7)
+    plt.legend()
+    plt.tight_layout()
+    plt.show()
 
 def fourier_filter(data, keep_fraction=0.1):
     """
