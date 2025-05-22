@@ -1,11 +1,16 @@
 plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'KaiTi', 'Arial'] 
 plt.rcParams['axes.unicode_minus'] = False  
+import os
+def get_desktop_path():
+    """获取Windows桌面路径"""
+    return os.path.join(os.environ['USERPROFILE'], 'Desktop')
+
 """
 傅立叶滤波和平滑 - 道琼斯工业平均指数分析
 
 本模块实现了对道Jones工业平均指数数据的傅立叶分析和滤波处理。
 """
-import os
+
 import numpy as np
 import matplotlib.pyplot as plt
 
