@@ -45,7 +45,7 @@ def load_data(filename):
     
    
 
-def plot_data(data, title="Dow Jones Industrial Average"):
+def plot_data(data, title="道琼斯工业平均指数"):
     """
     绘制时间序列数据
     
@@ -89,11 +89,22 @@ def fourier_filter(data, keep_fraction=0.1):
     # 3. 创建滤波后的系数数组
     # 4. 使用np.fft.irfft计算逆变换
     
-    raise NotImplementedError("请在 {} 中实现此函数。".format(__file__))
+    fft_coeff = np.fft.rfft(data)
+    
+    # 计算保留系数
+    n_coeff = len(fft_coeff)
+    keep_num = int(keep_fraction * n_coeff)
+    
+    # 创建滤波系数数组
+    filtered_coeff = np.zeros_like(fft_coeff)
+    filtered_coeff[:keep_num] = fft_coeff[:keep_num]
+    
+    # 逆变换重构信号
+    filtered_data = np.fft.irfft(filtered_coeff, n=len(data))
     
     return filtered_data, fft_coeff
 
-def plot_comparison(original, filtered, title="Fourier Filter Result"):
+def plot_comparison(original, filtered, title="傅立叶滤波结果"):
     """
     绘制原始数据和滤波结果的比较
     
@@ -112,7 +123,16 @@ def plot_comparison(original, filtered, title="Fourier Filter Result"):
     # 2. 添加图例、标签和标题
     # 3. 使用plt.grid添加网格线
     
-    raise NotImplementedError("请在 {} 中实现此函数。".format(__file__))
+    plt.figure(figsize=(12, 6))
+    plt.plot(original, color='blue', alpha=0.4, linewidth=1, label='原始数据')
+    plt.plot(filtered, color='red', linewidth=2, label='滤波结果')
+    plt.title(title, fontsize=14)
+    plt.xlabel("时间 (交易日)", fontsize=12)
+    plt.ylabel("指数值", fontsize=12)
+    plt.legend()
+    plt.grid(True, linestyle='--', alpha=0.5)
+    plt.tight_layout()
+    plt.show()
 
 def main():
     # 任务1：数据加载与可视化
