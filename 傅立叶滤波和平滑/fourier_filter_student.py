@@ -28,9 +28,22 @@ def load_data(filename):
     # [STUDENT_CODE_HERE]
     # 提示: 使用np.loadtxt加载数据文件，处理可能的异常
     
-    raise NotImplementedError("请在 {} 中实现此函数。".format(__file__))
+        try:
+        # 构建桌面文件路径
+        desktop = get_desktop_path()
+        file_path = os.path.join(desktop, filename)
+        
+        # 验证文件存在性
+        if not os.path.exists(file_path):
+            raise FileNotFoundError(f"文件 {file_path} 不存在")
+            
+        data = np.loadtxt(file_path)
+        return data
+    except Exception as e:
+        print(f"数据加载失败: {str(e)}")
+        exit(1)
     
-    return data
+   
 
 def plot_data(data, title="Dow Jones Industrial Average"):
     """
