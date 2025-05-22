@@ -1,5 +1,4 @@
-plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'KaiTi', 'Arial'] 
-plt.rcParams['axes.unicode_minus'] = False  
+
 import os
 def get_desktop_path():
     """获取Windows桌面路径"""
@@ -10,10 +9,10 @@ def get_desktop_path():
 
 本模块实现了对道Jones工业平均指数数据的傅立叶分析和滤波处理。
 """
-
 import numpy as np
 import matplotlib.pyplot as plt
-
+plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'KaiTi', 'Arial'] 
+plt.rcParams['axes.unicode_minus'] = False  
 def load_data(filename):
     """
     加载道Jones工业平均指数数据
