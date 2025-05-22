@@ -27,7 +27,7 @@ def load_data(filename):
     # [STUDENT_CODE_HERE]
     # 提示: 使用np.loadtxt加载数据文件，处理可能的异常
     
-     try:
+   try:
         # 构建桌面文件路径
         desktop = get_desktop_path()
         file_path = os.path.join(desktop, filename)
