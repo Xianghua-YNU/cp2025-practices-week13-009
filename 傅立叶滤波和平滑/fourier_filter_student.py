@@ -40,7 +40,7 @@ def load_data(filename):
         return data
     except Exception as e:
         print(f"数据加载失败: {str(e)}")
-        exit(1)
+        raise
     
    
 
