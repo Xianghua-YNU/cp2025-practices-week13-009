@@ -1,5 +1,5 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'KaiTi', 'Arial'] 
+plt.rcParams['axes.unicode_minus'] = False  
 """
 傅立叶滤波和平滑 - 道琼斯工业平均指数分析
 
