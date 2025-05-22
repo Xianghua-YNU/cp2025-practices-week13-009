@@ -5,7 +5,7 @@
 
 本模块实现了对道Jones工业平均指数数据的傅立叶分析和滤波处理。
 """
-
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 
