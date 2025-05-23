@@ -42,32 +42,22 @@ def load_data(filename):
         print(f"数据加载失败: {str(e)}")
         raise
     
-   
+ def plot_data(data, title="道琼斯工业平均指数"):
+    """绘制时间序列数据（保证返回Figure对象）"""
+    try:
+        fig = plt.figure(figsize=(12, 6))
+        plt.plot(data, color='navy', linewidth=1, label='原始数据')
+        plt.title(title, fontsize=14)
+        plt.xlabel("时间 (交易日)", fontsize=12)
+        plt.ylabel("指数值", fontsize=12)
+        plt.grid(True, linestyle='--', alpha=0.7)
+        plt.legend()
+        plt.tight_layout()
+        return fig
+    except Exception as e:
+        print(f"绘图错误: {e}")
+        return plt.figure()  # 保证始终返回Figure对象  
 
-def plot_data(data, title="道琼斯工业平均指数"):
-    """
-    绘制时间序列数据
-    
-    参数:
-        data (numpy.ndarray): 输入数据数组
-        title (str): 图表标题
-    
-    返回:
-        None
-    """
-    # TODO: 实现数据可视化 (约10行代码)
-    # [STUDENT_CODE_HERE]
-    # 提示: 使用plt.plot绘制数据，添加适当的标签和标题
-    
-    plt.figure(figsize=(12, 6))
-    plt.plot(data, color='navy', linewidth=1, label='原始数据')
-    plt.title(title, fontsize=14)
-    plt.xlabel("时间 (交易日)", fontsize=12)
-    plt.ylabel("指数值", fontsize=12)
-    plt.grid(True, linestyle='--', alpha=0.7)
-    plt.legend()
-    plt.tight_layout()
-    plt.show()
 
 def fourier_filter(data, keep_fraction=0.1):
     """
@@ -121,17 +111,22 @@ def plot_comparison(original, filtered, title="傅立叶滤波结果"):
     # 1. 使用不同颜色绘制原始和滤波数据
     # 2. 添加图例、标签和标题
     # 3. 使用plt.grid添加网格线
+    try：
+
+        fig = plt.figure(figsize=(12, 6))
+        plt.plot(original, color='blue', alpha=0.4, linewidth=1, label='原始数据')
+        plt.plot(filtered, color='red', linewidth=2, label='滤波结果')
+        plt.title(title, fontsize=14)
+        plt.xlabel("时间 (交易日)", fontsize=12)
+        plt.ylabel("指数值", fontsize=12)
+        plt.legend()
+        plt.grid(True, linestyle='--', alpha=0.5)
+        plt.tight_layout()
+        return fig
+    except Exception as e:
+        print(f"比较图错误: {e}")
+        return plt.figure()
     
-    fig=plt.figure(figsize=(12, 6))
-    plt.plot(original, color='blue', alpha=0.4, linewidth=1, label='原始数据')
-    plt.plot(filtered, color='red', linewidth=2, label='滤波结果')
-    plt.title(title, fontsize=14)
-    plt.xlabel("时间 (交易日)", fontsize=12)
-    plt.ylabel("指数值", fontsize=12)
-    plt.legend()
-    plt.grid(True, linestyle='--', alpha=0.5)
-    plt.tight_layout()
-    return fig
 
 def main():
     # 任务1：数据加载与可视化
