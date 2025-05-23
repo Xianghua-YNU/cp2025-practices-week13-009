@@ -143,7 +143,44 @@ def find_energy_level_bisection(n, V, w, m, precision=0.001, E_min=0.001, E_max=
     # [STUDENT_CODE_HERE]
     # 提示: 需要考虑能级的奇偶性，偶数能级使用偶宇称方程，奇数能级使用奇宇称方程
     
-    raise NotImplementedError("请在 {} 中实现此函数。".format(__file__))
+      if E_max is None:
+        E_max = V - 0.001  # 避免在V处的奇点
+    
+    # 根据能级序号n选择合适的方程
+    if n % 2 == 0:  # 偶数能级 (0, 2, 4, ...)
+        equation = lambda E: energy_equation_even(E, V, w, m)
+    else:  # 奇数能级 (1, 3, 5, ...)
+        equation = lambda E: energy_equation_odd(E, V, w, m)
+    
+    # 初始化搜索区间
+    a, b = E_min, E_max
+    
+    # 检查区间端点的函数值符号是否相反
+    fa, fb = equation(a), equation(b)
+    if fa * fb > 0:
+        # 如果端点函数值符号相同，需要调整搜索区间
+        # 这里简化处理，实际应用中可能需要更复杂的策略
+        # 例如，可以在区间内采样多个点，寻找函数值符号变化的区间
+        raise ValueError(f"无法在给定区间 [{a}, {b}] 内找到第 {n} 个能级")
+    
+    # 二分法迭代
+    while (b - a) > precision:
+        c = (a + b) / 2  # 区间中点
+        fc = equation(c)
+        
+        if abs(fc) < 1e-10:  # 如果中点非常接近根
+            return c
+        
+        if fa * fc < 0:  # 如果根在左半区间
+            b = c
+            fb = fc
+        else:  # 如果根在右半区间
+            a = c
+            fa = fc
+    
+    # 返回区间中点作为近似解
+    return (a + b) / 2
+
     
     return energy_level
 
