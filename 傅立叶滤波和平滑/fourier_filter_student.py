@@ -2,7 +2,7 @@
 import os
 def get_desktop_path():
     """获取Windows桌面路径"""
-    return os.path.join(os.environ['USERPROFILE'], 'Desktop')
+    return os.path.join(os.path.expanduser('~'), 'Desktop')
 
 """
 傅立叶滤波和平滑 - 道琼斯工业平均指数分析
@@ -122,7 +122,7 @@ def plot_comparison(original, filtered, title="傅立叶滤波结果"):
     # 2. 添加图例、标签和标题
     # 3. 使用plt.grid添加网格线
     
-    plt.figure(figsize=(12, 6))
+    fig=plt.figure(figsize=(12, 6))
     plt.plot(original, color='blue', alpha=0.4, linewidth=1, label='原始数据')
     plt.plot(filtered, color='red', linewidth=2, label='滤波结果')
     plt.title(title, fontsize=14)
@@ -131,20 +131,20 @@ def plot_comparison(original, filtered, title="傅立叶滤波结果"):
     plt.legend()
     plt.grid(True, linestyle='--', alpha=0.5)
     plt.tight_layout()
-    plt.show()
+    return fig
 
 def main():
     # 任务1：数据加载与可视化
     data = load_data('dow.txt')
-    plot_data(data, "原始道琼斯指数数据 (桌面文件)")
-    
+    figs = []
+    figs.append(plot_data(data, "原始道琼斯指数数据"))
     # 任务2：傅立叶变换与滤波（保留前10%系数）
     filtered_10, coeff = fourier_filter(data, 0.1)
-    plot_comparison(data, filtered_10, "Fourier Filter (Keep Top 10% Coefficients)")
+    figs.append(plot_comparison(data, filtered_10, "保留前10%系数"))
     
     # 任务3：修改滤波参数（保留前2%系数）
     filtered_2, _ = fourier_filter(data, 0.02)
-    plot_comparison(data, filtered_2, "Fourier Filter (Keep Top 2% Coefficients)")
-
+    figs.append(plot_comparison(data, filtered_2, "保留前2%系数"))
+    plt.show()
 if __name__ == "__main__":
     main()
