@@ -111,7 +111,7 @@ def plot_comparison(original, filtered, title="傅立叶滤波结果"):
     # 1. 使用不同颜色绘制原始和滤波数据
     # 2. 添加图例、标签和标题
     # 3. 使用plt.grid添加网格线
-    try：
+    try:
 
         fig = plt.figure(figsize=(12, 6))
         plt.plot(original, color='blue', alpha=0.4, linewidth=1, label='原始数据')
