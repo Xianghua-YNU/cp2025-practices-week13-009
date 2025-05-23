@@ -42,7 +42,7 @@ def load_data(filename):
         print(f"数据加载失败: {str(e)}")
         raise
     
- def plot_data(data, title="道琼斯工业平均指数"):
+def plot_data(data, title="道琼斯工业平均指数"):
     """绘制时间序列数据（保证返回Figure对象）"""
     try:
         fig = plt.figure(figsize=(12, 6))
