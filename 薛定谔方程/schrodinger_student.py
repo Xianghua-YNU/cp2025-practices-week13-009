@@ -143,7 +143,7 @@ def find_energy_level_bisection(n, V, w, m, precision=0.001, E_min=0.001, E_max=
     # [STUDENT_CODE_HERE]
     # 提示: 需要考虑能级的奇偶性，偶数能级使用偶宇称方程，奇数能级使用奇宇称方程
     
-      if E_max is None:
+    if E_max is None:
         E_max = V - 0.001  # 避免在V处的奇点
     
     # 根据能级序号n选择合适的方程
