@@ -32,7 +32,24 @@ def calculate_y_values(E_values, V, w, m):
     # [STUDENT_CODE_HERE]
     # 提示: 注意单位转换和避免数值计算中的溢出或下溢
     
-    raise NotImplementedError("请在 {} 中实现此函数。".format(__file__))
+    E_joules = E_values * EV_TO_JOULE
+    V_joule = V * EV_TO_JOULE
+    
+    # 使用 (w^2 * m) / (2 * hbar^2) 作为一个整体计算
+    factor = (w**2 * m) / (2 * HBAR**2)
+    
+    # 计算三个函数值
+    y1 = np.tan(np.sqrt(factor * E_joules))
+    
+    # 对于y2和y3，需要处理可能的除零错误
+    with np.errstate(divide='ignore', invalid='ignore'):
+        y2 = np.sqrt((V_joule - E_joules) / E_joules)
+        y3 = -np.sqrt(E_joules / (V_joule - E_joules))
+    
+    # 处理无穷大和NaN值
+    y1 = np.where(np.isfinite(y1), y1, np.nan)
+    y2 = np.where(np.isfinite(y2), y2, np.nan)
+    y3 = np.where(np.isfinite(y3), y3, np.nan)
     
     return y1, y2, y3
 
