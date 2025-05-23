@@ -71,7 +71,27 @@ def plot_energy_functions(E_values, y1, y2, y3):
     # [STUDENT_CODE_HERE]
     # 提示: 使用不同颜色和线型，添加适当的标签、图例和标题
     
-    raise NotImplementedError("请在 {} 中实现此函数。".format(__file__))
+    fig, ax = plt.subplots(figsize=(10, 6))
+    
+    # 绘制三个函数曲线
+    ax.plot(E_values, y1, 'b-', label=r'$y_1 = \tan\sqrt{w^2mE/2\hbar^2}$')
+    ax.plot(E_values, y2, 'r-', label=r'$y_2 = \sqrt{\frac{V-E}{E}}$ (偶宇称)')
+    ax.plot(E_values, y3, 'g-', label=r'$y_3 = -\sqrt{\frac{E}{V-E}}$ (奇宇称)')
+    
+    # 添加水平和垂直参考线
+    ax.axhline(y=0, color='k', linestyle='--', alpha=0.3)
+    ax.axvline(x=0, color='k', linestyle='--', alpha=0.3)
+    
+    # 设置坐标轴范围，限制y轴范围以便更清晰地看到交点
+    ax.set_xlim(0, 20)
+    ax.set_ylim(-10, 10)
+    
+    # 添加标签和标题
+    ax.set_xlabel('Energy E (eV)')
+    ax.set_ylabel('Function value')
+    ax.set_title('Square Potential Well Energy Levels')
+    ax.legend()
+    ax.grid(True, alpha=0.3)
     
     return fig
 
